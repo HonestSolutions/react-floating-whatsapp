@@ -213,7 +213,6 @@ export function FloatingWhatsApp({
         className={`${css.whatsappButton} ${buttonClassName}`}
         onClick={handleOpen}
         style={buttonStyle}
-        aria-hidden='true'
       >
         <WhatsappSVG />
         {isNotification && (
@@ -226,7 +225,6 @@ export function FloatingWhatsApp({
       <div
         className={`${css.whatsappChatBox} ${isOpen ? css.open : css.close} ${chatboxClassName}`}
         onClick={(event) => event.stopPropagation()}
-        aria-hidden='true'
         style={{ height: isOpen ? chatboxHeight : 0, ...chatboxStyle }}
       >
         <header className={css.chatHeader}>
@@ -237,7 +235,19 @@ export function FloatingWhatsApp({
             <span className={css.statusTitle}>{accountName}</span>
             <span className={css.statusSubtitle}>{statusMessage}</span>
           </div>
-          <div className={css.close} onClick={handleClose} aria-hidden='true'>
+          <div
+            className={css.close}
+            onClick={handleClose}
+            role="button"
+            tabIndex={0}
+            aria-label="Close chat"
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleClose();
+              }
+            }}
+          >
             <CloseSVG />
           </div>
         </header>
