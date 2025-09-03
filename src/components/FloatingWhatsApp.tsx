@@ -235,7 +235,19 @@ export function FloatingWhatsApp({
             <span className={css.statusTitle}>{accountName}</span>
             <span className={css.statusSubtitle}>{statusMessage}</span>
           </div>
-          <div className={css.close} onClick={handleClose}>
+          <div
+            className={css.close}
+            onClick={handleClose}
+            role="button"
+            tabIndex={0}
+            aria-label="Close chat"
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleClose();
+              }
+            }}
+          >
             <CloseSVG />
           </div>
         </header>
